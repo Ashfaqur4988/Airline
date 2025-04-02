@@ -1,0 +1,3 @@
+triggers in db are like events, we can set up triggers, like do something before or after the event.
+this will be used for our password hashing
+sequelize gives the triggers / hook
