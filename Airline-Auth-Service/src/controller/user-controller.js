@@ -38,11 +38,11 @@ const signin = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.log(error);
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: "Something went wrong",
+    // console.log(error);
+    return res.status(error.statusCode).json({
+      message: error.message,
       data: {},
-      error: error,
+      error: error.explanation,
       success: false,
     });
   }

@@ -39,7 +39,10 @@ class UserService {
       const newToken = this.createToken({ email: user.email, id: user.id });
       return newToken;
     } catch (error) {
-      console.log("something went wrong in token creation");
+      console.log("something went wrong in service layer ");
+      if (error.name === "AttributeNotFound") {
+        throw error;
+      }
       throw error;
     }
   }
@@ -47,10 +50,11 @@ class UserService {
   async isAuthenticated(token) {
     try {
       const response = this.verifyToken(token);
+      console.log(token);
       if (!response) {
         throw { error: "invalid token" };
       }
-      const user = this.userRepository.getById(response.id);
+      const user = await this.userRepository.getById(response.id);
       if (!user) {
         throw { error: "no user with the corresponding token exists" };
       }
